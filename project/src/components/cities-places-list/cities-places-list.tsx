@@ -16,7 +16,7 @@ function CitiesPlacesList({offers}: CitiesPlacesListProps): JSX.Element {
         <CitiesCard
           key={offer.id}
           offer={offer}
-          setClickOffer={() => setClickOffer(offer)}
+          setClickOffer={setClickOffer}
         />
       ))}
     </div>

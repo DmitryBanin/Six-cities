@@ -1,5 +1,3 @@
-// import {BrowserRouter, Route, Routes, Link} from 'react-router-dom';
-// import {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 
 function Page404(): JSX.Element {

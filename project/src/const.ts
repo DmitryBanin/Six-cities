@@ -21,22 +21,22 @@ export enum RatingStars {
   Star_5 = '100%'
 }
 
-export type place = {
+export type Place = {
   [key: string]: string,
 };
 
-export type elementType = {
+export type ElementType = {
   [key: number]: string,
 };
 
-export const placeType: place = {
+export const placeType: Place = {
   apartment: 'Apartment',
   room: 'Private Room',
   house: 'House',
   hotel: 'Hotel',
 };
 
-export const ratingTitle: elementType = {
+export const ratingTitle: ElementType = {
   1: 'terribly',
   2: 'badly',
   3: 'not bad',
@@ -49,3 +49,6 @@ export enum Setting {
   MAX_RATING = 5,
 }
 
+export const URL_MARKER_DEFAULT = 'img/pin.svg';
+
+export const URL_MARKER_CURRENT = 'img/pin-active';
