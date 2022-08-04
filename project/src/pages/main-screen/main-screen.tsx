@@ -2,6 +2,7 @@ import CitiesPlacesList from '../../components/cities-places-list/cities-places-
 import Logo from '../../components/logo/logo';
 import {OfferTypes} from '../../types/offer-type';
 import Map from '../../components/map/map';
+import { isTextClassName } from '../../const';
 
 type MainScreenProps = {
   placesCount: number;
@@ -14,9 +15,7 @@ function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <div className="header__left">
-              <Logo />
-            </div>
+            <Logo />
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
@@ -112,11 +111,13 @@ function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
 
-              <CitiesPlacesList offers={offers}/>
+              <CitiesPlacesList offers={offers} isTextClassName={isTextClassName.cities}/>
 
             </section>
             <div className="cities__right-section">
-              <Map city={offers[0].city} offers={offers} />
+
+              <Map city={offers[0].city} offers={offers} isTextClassName={isTextClassName.cities} />
+
             </div>
           </div>
         </div>
