@@ -7,7 +7,7 @@ export const offers: OfferTypes = [
       location: {
         latitude: 52.373057,
         longitude: 4.892557,
-        zoom: 13
+        zoom: 12
       }
     },
     previewImage: 'https://10.react.pages.academy/static/hotel/18.jpg',
@@ -61,7 +61,7 @@ export const offers: OfferTypes = [
       location: {
         latitude: 52.373057,
         longitude: 4.892557,
-        'zoom': 13
+        'zoom': 12
       }
     },
     previewImage: 'https://10.react.pages.academy/static/hotel/19.jpg',
@@ -113,7 +113,7 @@ export const offers: OfferTypes = [
       location: {
         latitude: 52.373057,
         longitude: 4.892557,
-        zoom: 13
+        zoom: 12
       }
     },
     previewImage: 'https://10.react.pages.academy/static/hotel/6.jpg',
@@ -133,11 +133,11 @@ export const offers: OfferTypes = [
       'https://10.react.pages.academy/static/hotel/19.jpg',
       'https://10.react.pages.academy/static/hotel/3.jpg'
     ],
-    title: 'Nice, cozy, warm big bed apartment',
+    title: 'Cozy apartment',
     isFavorite: false,
     isPremium: false,
     rating: 3,
-    type: 'house',
+    type: 'room',
     bedrooms: 4,
     maxAdults: 8,
     price: 198,
@@ -171,7 +171,7 @@ export const offers: OfferTypes = [
       location: {
         latitude: 52.373057,
         longitude: 4.892557,
-        zoom: 13
+        zoom: 12
       }
     },
     previewImage: 'https://10.react.pages.academy/static/hotel/4.jpg',
@@ -195,7 +195,7 @@ export const offers: OfferTypes = [
     isFavorite: true,
     isPremium: false,
     rating: 3.7,
-    type: 'house',
+    type: 'apartment',
     bedrooms: 3,
     maxAdults: 8,
     price: 853,

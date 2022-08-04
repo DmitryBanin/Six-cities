@@ -3,14 +3,15 @@ import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { useRef, useEffect } from 'react';
-import { URL_MARKER_DEFAULT} from '../../const';
+import { URL_MARKER_DEFAULT } from '../../const';
 
 type MapProps = {
     offers: OfferTypes;
     city: City;
+    isTextClassName: boolean;
   }
 
-function Map({city, offers}: MapProps): JSX.Element {
+function Map({city, offers, isTextClassName}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -44,7 +45,7 @@ function Map({city, offers}: MapProps): JSX.Element {
 
   return (
     <section
-      className="cities__map map"
+      className={`${isTextClassName ? 'cities' : 'property'}__map map`}
       ref={mapRef}
     >
     </section>

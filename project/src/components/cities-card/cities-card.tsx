@@ -1,27 +1,29 @@
 import {Link} from 'react-router-dom';
 import { MouseEvent } from 'react';
 import { placeType, AppRoute } from '../../const';
-import {OfferType} from '../../types/offer-type';
-import {getRatingStars} from '../../utils';
+import { OfferType } from '../../types/offer-type';
+import { getRatingStars } from '../../utils';
 
 type CitiesCardProps = {
   offer: OfferType;
-  setClickOffer: (evt: MouseEvent<HTMLElement>) => void;
+  setClickOffer: (offer: OfferType) => void;
+  isTextClassName: boolean;
 };
 
-function CitiesCard({offer, setClickOffer}: CitiesCardProps): JSX.Element {
+function CitiesCard({offer, setClickOffer, isTextClassName}: CitiesCardProps): JSX.Element {
   const {previewImage, price, title, type, rating, isPremium, isFavorite, id} = offer;
+  const handleMouseOver = (evt: MouseEvent<HTMLElement>) => setClickOffer(offer);
 
   return (
-    <article className="cities__card place-card" onMouseOver={setClickOffer}>
+    <article className={`${isTextClassName ? 'cities' : 'near-places'}__card place-card`} onMouseOver={handleMouseOver}>
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${isTextClassName ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
             src={previewImage}
-            width="150"
-            height="110"
+            width="260"
+            height="200"
             alt="Place image"
           />
         </a>

@@ -25,6 +25,10 @@ export type Place = {
   [key: string]: string,
 };
 
+export type TextClassName = {
+  [key: string]: boolean,
+};
+
 export type ElementType = {
   [key: number]: string,
 };
@@ -52,3 +56,13 @@ export enum Setting {
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 
 export const URL_MARKER_CURRENT = 'img/pin-active';
+
+export enum Count {
+  IMAGE_COUNT = 6,
+  COMMENTS_COUNT = 10,
+}
+
+export const isTextClassName: TextClassName = {
+  cities: true,
+  property: false,
+};

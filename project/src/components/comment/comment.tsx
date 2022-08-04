@@ -1,11 +1,12 @@
 import { getRatingStars } from '../../utils';
 import { CommentType } from '../../types/comment-type';
+import dayjs from 'dayjs';
 
 type CommentProps = {
   review: CommentType;
 };
 
-export default function Comment({ review }: CommentProps): JSX.Element {
+function Comment({ review }: CommentProps): JSX.Element {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -29,9 +30,11 @@ export default function Comment({ review }: CommentProps): JSX.Element {
         </div>
         <p className="reviews__text">{review.comment}</p>
         <time className="reviews__time" dateTime="2019-04-24">
-          {review.date}
+          {dayjs(review.date).format('MMMM YYYY')}
         </time>
       </div>
     </li>
   );
 }
+
+export default Comment;

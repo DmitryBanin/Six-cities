@@ -10,10 +10,7 @@ function FavoritesList(props: FavoritesListProps): JSX.Element {
 
   return (
     <ul className="favorites__list">
-      {offers.map((offer: OfferType) => {
-        const id = offer.id;
-        return <FavoritesPlaces key={id} offer={offer} />;
-      })}
+      {offers.map((offer: OfferType) => <FavoritesPlaces key={offer.id} offer={offer} /> )}
     </ul>
   );
 }
