@@ -202,7 +202,6 @@ html {
   font-smoothing: antialiased;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  margin-left: calc(100vw - 100%);
 }
 *,
 ::after,

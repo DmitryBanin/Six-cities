@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, Fragment } from 'react';
-import { Setting, ratingTitle } from '../../const';
+import { SettingCount, ratingTitle } from '../../const';
 
 export default function ReviewForm(): JSX.Element {
   const [review, setReview] = useState({ rating: 0, comment: '' });
@@ -13,8 +13,8 @@ export default function ReviewForm(): JSX.Element {
       </label>
       <div className="reviews__rating-form form__rating">
         {
-          [...new Array(Setting.MAX_RATING)].map((_, index) => {
-            const starNumber = Setting.MAX_RATING - index;
+          [...new Array(SettingCount.MAX_RATING)].map((_, index) => {
+            const starNumber = SettingCount.MAX_RATING - index;
             return (
               <Fragment key={starNumber}>
                 <input

@@ -1,7 +1,7 @@
 import { OfferTypes } from '../../types/offer-type';
 import Logo from '../../components/logo/logo';
 import { useParams, Navigate } from 'react-router-dom';
-import { AppRoute, Count, isTextClassName } from '../../const';
+import { AppRoute, SettingCount, isTextClassName } from '../../const';
 import { getRatingStars } from '../../utils';
 import CommentsList from '../../components/comments-list/comments-list';
 import { comments } from '../../mocks/comments';
@@ -32,7 +32,7 @@ function RoomScreen({offers}: RoomScreenProps): JSX.Element {
     <div key={img} className="property__image-wrapper">
       <img className="property__image" src={img} alt={`Room ${roomOffer.id}`} />
     </div>
-  )).slice(0, Count.IMAGE_COUNT);
+  )).slice(0, SettingCount.IMAGE_COUNT);
 
   const propertyInsideListElements = roomOffer.goods.map(
     (element) => <li key={element} className="property__inside-item">{element}</li>
