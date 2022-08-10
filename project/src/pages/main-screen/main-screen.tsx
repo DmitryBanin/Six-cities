@@ -1,21 +1,27 @@
 import CitiesPlacesList from '../../components/cities-places-list/cities-places-list';
 import Logo from '../../components/logo/logo';
-import {OfferTypes} from '../../types/offer-type';
+import { OfferTypes } from '../../types/offer-type';
 import Map from '../../components/map/map';
 import { isTextClassName } from '../../const';
+import LocationContainer from '../../components/locations-list/locations-list';
 
 type MainScreenProps = {
-  placesCount: number;
+  city: string;
   offers: OfferTypes;
+  cities: string[],
 }
 
-function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
+function MainScreen({city, offers, cities}: MainScreenProps): JSX.Element {
+  const filteredOffers = offers.filter((offer) => offer.city.name === city);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
+
             <Logo />
+
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
@@ -45,46 +51,17 @@ function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+
+            <LocationContainer cities={cities}/>
+
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
+              <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
+              {/* <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
                   Popular
@@ -109,9 +86,9 @@ function MainScreen({placesCount, offers}: MainScreenProps): JSX.Element {
                     Top rated first
                   </li>
                 </ul>
-              </form>
+              </form> */}
 
-              <CitiesPlacesList offers={offers} isTextClassName={isTextClassName.cities}/>
+              <CitiesPlacesList offers={filteredOffers} isTextClassName={isTextClassName.cities}/>
 
             </section>
             <div className="cities__right-section">
