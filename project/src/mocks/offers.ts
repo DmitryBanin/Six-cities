@@ -34,7 +34,7 @@ export const offers: OfferTypes = [
     type: 'hotel',
     bedrooms: 2,
     maxAdults: 5,
-    price: 393,
+    price: 1000,
     goods: [
       'Laptop friendly workspace',
       'Washer',

@@ -54,16 +54,15 @@ export enum SettingCount {
   COMMENTS_COUNT = 10,
 }
 
-export const URL_MARKER_DEFAULT = 'img/pin.svg';
+export const DEFAULT_PIN = 'img/pin.svg';
+export const CURRENT_PIN = 'img/pin-active';
 
-export const URL_MARKER_CURRENT = 'img/pin-active';
+export const DEFAULT_CITY_NAME = 'Paris';
 
 export const isTextClassName: TextClassName = {
   cities: true,
   property: false,
 };
-
-export const DEFAULT_CITY_NAME = 'Paris';
 
 export const cities = [
   'Paris',
@@ -73,3 +72,11 @@ export const cities = [
   'Hamburg',
   'Dusseldorf',
 ];
+
+export const SortType = {
+  Popular: 'Popular',
+  LowToHigh: 'Price: low to high',
+  HighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first',
+};
+
