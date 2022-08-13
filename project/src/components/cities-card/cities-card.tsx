@@ -1,23 +1,28 @@
 import {Link} from 'react-router-dom';
 import { MouseEvent } from 'react';
-import { placeType, AppRoute } from '../../const';
+import { place, AppRoute } from '../../const';
 import { OfferType } from '../../types/offer-type';
 import { getRatingStars } from '../../utils';
 
 type CitiesCardProps = {
   offer: OfferType;
-  setClickOffer: (offer: OfferType) => void;
-  isTextClassName: boolean;
+  placeType: string;
+  onHoverCard: (id: number | null) => void;
 };
 
-function CitiesCard({offer, setClickOffer, isTextClassName}: CitiesCardProps): JSX.Element {
+function CitiesCard({offer, onHoverCard, placeType}: CitiesCardProps): JSX.Element {
   const {previewImage, price, title, type, rating, isPremium, isFavorite, id} = offer;
-  const handleMouseOver = (evt: MouseEvent<HTMLElement>) => setClickOffer(offer);
+  const handleMouseOver = (evt: MouseEvent<HTMLElement>) => onHoverCard(offer.id);
+  const handleMouseLeave = (evt: MouseEvent<HTMLElement>) => onHoverCard(null);
 
   return (
-    <article className={`${isTextClassName ? 'cities' : 'near-places'}__card place-card`} onMouseOver={handleMouseOver}>
+    <article
+      className={`${placeType ? 'cities' : 'near-places'}__card place-card`}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+    >
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
-      <div className={`${isTextClassName ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${placeType ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
@@ -52,7 +57,7 @@ function CitiesCard({offer, setClickOffer, isTextClassName}: CitiesCardProps): J
             {title}
           </Link>
         </h2>
-        <p className="place-card__type">{placeType[type]}</p>
+        <p className="place-card__type">{place[type]}</p>
       </div>
     </article>
   );

@@ -3,10 +3,10 @@ import { OfferTypes } from '../types/offer-type';
 export const offers: OfferTypes = [
   {
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
-        latitude: 52.373057,
-        longitude: 4.892557,
+        latitude: 48.856663,
+        longitude: 2.351556,
         zoom: 12
       }
     },
@@ -49,8 +49,8 @@ export const offers: OfferTypes = [
     },
     description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 48.852140,
+      longitude: 2.340862,
       zoom: 16
     },
     id: 1

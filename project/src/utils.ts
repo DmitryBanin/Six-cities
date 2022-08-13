@@ -21,9 +21,9 @@ export const getRatingStars = (rating: number) => {
 
 export const getSortOffers = (type: string, offers: OfferTypes) => {
   switch (type) {
-    case SortType.LowToHigh:
+    case SortType.PriceLowToHigh:
       return offers.sort((offerA: OfferType, offerB: OfferType) => offerA.price - offerB.price);
-    case SortType.HighToLow:
+    case SortType.PriceHighToLow:
       return offers.sort((offerA: OfferType, offerB: OfferType) => offerB.price - offerA.price);
     case SortType.TopRatedFirst:
       return offers.sort((offerA: OfferType, offerB: OfferType) => offerB.rating - offerA.rating);

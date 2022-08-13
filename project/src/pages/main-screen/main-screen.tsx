@@ -1,12 +1,11 @@
-import CitiesPlacesList from '../../components/cities-places-list/cities-places-list';
 import Logo from '../../components/logo/logo';
 import { OfferTypes } from '../../types/offer-type';
-import Map from '../../components/map/map';
-import { isTextClassName, SortType } from '../../const';
-import LocationContainer from '../../components/locations-list/locations-list';
+import { PlaceType, SortType } from '../../const';
+import LocationsList from '../../components/locations-list/locations-list';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import { useState } from 'react';
 import { getSortOffers } from '../../utils';
+import { MapHocProps } from '../../hocs/with-map';
 
 type MainScreenProps = {
   city: string;
@@ -14,11 +13,12 @@ type MainScreenProps = {
   cities: string[],
 }
 
-function MainScreen({city, offers, cities}: MainScreenProps): JSX.Element {
-  const [activeSortType, setActiveSortType] = useState(SortType.Popular);
-  const filteredOffers = offers.filter((offer) => offer.city.name === city);
-  const renderingOffers = getSortOffers(activeSortType, [...filteredOffers]);
+function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScreenProps & MapHocProps): JSX.Element {
 
+  const [activeSortType, setActiveSortType] = useState(SortType.Popular);
+  const locationOffers = offers.filter((offer) => offer.city.name === city);
+  const sortOffers = getSortOffers(activeSortType, [...locationOffers]);
+  const currentCity = sortOffers[0].city;
   const handleSortType = (type: string) => {
     setActiveSortType(type);
   };
@@ -61,7 +61,7 @@ function MainScreen({city, offers, cities}: MainScreenProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
 
-            <LocationContainer cities={cities}/>
+            <LocationsList cities={cities}/>
 
           </section>
         </div>
@@ -69,15 +69,18 @@ function MainScreen({city, offers, cities}: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
+              <b className="places__found">{locationOffers.length} places to stay in {city}</b>
 
-              <PlacesSorting onChangeSortType={handleSortType} />
-              <CitiesPlacesList offers={renderingOffers} isTextClassName={isTextClassName.cities}/>
+              <PlacesSorting
+                onChangeSortType={handleSortType}
+              />
+
+              {renderOffersList(sortOffers, PlaceType.Cities)}
 
             </section>
             <div className="cities__right-section">
 
-              <Map city={offers[0].city} offers={offers} isTextClassName={isTextClassName.cities} />
+              {renderMap(locationOffers, currentCity, PlaceType.Cities)}
 
             </div>
           </div>
