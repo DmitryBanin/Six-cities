@@ -7,12 +7,16 @@ import RoomScreen from '../../pages/room-screen/room-screen';
 import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks/index';
+import { withMap } from '../../hocs/with-map';
 
-type AppScreenProps = {
+type AppProps = {
   cities: string[];
 };
 
-function App({ cities }: AppScreenProps): JSX.Element {
+const MainScreenWithMap = withMap(MainScreen);
+const RoomScreenWithMap = withMap(RoomScreen);
+
+function App({ cities }: AppProps): JSX.Element {
   const { offersList, city } = useAppSelector((state) => state);
 
   return (
@@ -20,25 +24,37 @@ function App({ cities }: AppScreenProps): JSX.Element {
       <Routes>
         <Route path={AppRoute.Main}>
           <Route index element={
-            <MainScreen
+            <MainScreenWithMap
               offers={offersList}
               city={city}
               cities={cities}
             />
           }
           />
-          <Route path={AppRoute.Login} element={<LoginScreen />} />
+          <Route
+            path={AppRoute.Login}
+            element={<LoginScreen />}
+          />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <FavotitesScreen offers={offersList}/>
+                <FavotitesScreen
+                  offers={offersList}
+                />
               </PrivateRoute>
             }
           />
-          <Route path={`${AppRoute.Room}/:id`} element={<RoomScreen offers={offersList}/>} />
+          <Route
+            path={`${AppRoute.Room}/:id`}
+            element={
+              <RoomScreenWithMap
+                offers={offersList}
+              />
+            }
+          />
         </Route>
         <Route path={AppRoute.NotFound} element={<Page404 />} />
       </Routes>

@@ -1,7 +1,7 @@
-import {OfferType} from '../../types/offer-type';
-import { placeType } from '../../const';
-import {Link} from 'react-router-dom';
-import { getRatingStars} from '../../utils';
+import { OfferType } from '../../types/offer-type';
+import { place } from '../../const';
+import { Link } from 'react-router-dom';
+import { getRatingStars } from '../../utils';
 
 type OfferCardProps = {
   offer: OfferType;
@@ -68,7 +68,7 @@ function FavoritesPlaces(props: OfferCardProps): JSX.Element {
                 {title}
               </Link>
             </h2>
-            <p className="place-card__type">{placeType[type]}</p>
+            <p className="place-card__type">{place[type]}</p>
           </div>
         </article>
       </div>

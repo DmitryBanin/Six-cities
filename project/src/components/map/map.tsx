@@ -3,49 +3,53 @@ import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { useRef, useEffect } from 'react';
-import { URL_MARKER_DEFAULT } from '../../const';
+import { Pin, PlaceType } from '../../const';
 
 type MapProps = {
     offers: OfferTypes;
     city: City;
-    isTextClassName: boolean;
+    placeType: PlaceType;
+    activeCard: number | null;
   }
 
-function Map({city, offers, isTextClassName}: MapProps): JSX.Element {
+const defaultPinIcon = new Icon({
+  iconUrl: Pin.Default,
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39],
+});
+
+const currentPinIcon = new Icon({
+  iconUrl: Pin.Current,
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39],
+});
+
+function Map({city, offers, placeType, activeCard}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const { latitude, longitude, zoom } = city.location;
 
-  const defaultIcon = new Icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [27, 39],
-    iconAnchor: [13.5, 39],
-  });
-
-  // const currentIcon = new Icon({
-  //   iconUrl: URL_MARKER_CURRENT,
-  //   iconSize: [27, 39],
-  //   iconAnchor: [13.5, 39],
-  // });
 
   useEffect(() => {
     if (map) {
+      map.setView({ lat: latitude, lng: longitude }, zoom, { animate: true, duration: 1 });
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         }, {
-          icon: defaultIcon,
+          icon: defaultPinIcon,
         });
         marker
-          .setIcon(defaultIcon)
+          .setIcon(offer.id === activeCard ? currentPinIcon : defaultPinIcon)
           .addTo(map);
       });
     }
-  }, [map, offers]);
+  }, [map, offers, activeCard, latitude, longitude, zoom]);
 
   return (
     <section
-      className={`${isTextClassName ? 'cities' : 'property'}__map map`}
+      className={`${placeType === 'cities' ? 'cities' : 'property'}__map map`}
       ref={mapRef}
     >
     </section>

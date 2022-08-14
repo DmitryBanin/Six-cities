@@ -2,9 +2,9 @@ export type Place = {
   [key: string]: string,
 };
 
-export type TextClassName = {
-  [key: string]: boolean,
-};
+// export type PlaceType = {
+//   [key: string]: boolean,
+// };
 
 export type ElementType = {
   [key: number]: string,
@@ -33,7 +33,7 @@ export enum RatingStars {
   Star_5 = '100%'
 }
 
-export const placeType: Place = {
+export const place: Place = {
   apartment: 'Apartment',
   room: 'Private Room',
   house: 'House',
@@ -54,16 +54,18 @@ export enum SettingCount {
   COMMENTS_COUNT = 10,
 }
 
-export const URL_MARKER_DEFAULT = 'img/pin.svg';
-
-export const URL_MARKER_CURRENT = 'img/pin-active';
-
-export const isTextClassName: TextClassName = {
-  cities: true,
-  property: false,
-};
+export enum Pin {
+  Default = 'img/pin.svg',
+  Current = 'img/pin-active.svg',
+}
 
 export const DEFAULT_CITY_NAME = 'Paris';
+
+export enum PlaceType {
+  Cities = 'cities',
+  Property = 'property',
+  NearPlaces = 'near-places',
+}
 
 export const cities = [
   'Paris',
@@ -73,3 +75,11 @@ export const cities = [
   'Hamburg',
   'Dusseldorf',
 ];
+
+export const SortType = {
+  Popular: 'Popular',
+  PriceLowToHigh: 'Price: low to high',
+  PriceHighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first',
+};
+

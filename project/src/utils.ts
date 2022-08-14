@@ -1,3 +1,6 @@
+import { OfferTypes, OfferType } from './types/offer-type';
+import { SortType } from './const';
+
 export const getRatingStars = (rating: number) => {
   const ratingStars = Math.round(rating);
   switch (ratingStars) {
@@ -15,3 +18,17 @@ export const getRatingStars = (rating: number) => {
       return '100%';
   }
 };
+
+export const getSortOffers = (type: string, offers: OfferTypes) => {
+  switch (type) {
+    case SortType.PriceLowToHigh:
+      return offers.sort((offerA: OfferType, offerB: OfferType) => offerA.price - offerB.price);
+    case SortType.PriceHighToLow:
+      return offers.sort((offerA: OfferType, offerB: OfferType) => offerB.price - offerA.price);
+    case SortType.TopRatedFirst:
+      return offers.sort((offerA: OfferType, offerB: OfferType) => offerB.rating - offerA.rating);
+    default:
+      return offers;
+  }
+};
+

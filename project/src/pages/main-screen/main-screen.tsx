@@ -1,9 +1,11 @@
-import CitiesPlacesList from '../../components/cities-places-list/cities-places-list';
 import Logo from '../../components/logo/logo';
 import { OfferTypes } from '../../types/offer-type';
-import Map from '../../components/map/map';
-import { isTextClassName } from '../../const';
-import LocationContainer from '../../components/locations-list/locations-list';
+import { PlaceType, SortType } from '../../const';
+import LocationsList from '../../components/locations-list/locations-list';
+import PlacesSorting from '../../components/places-sorting/places-sorting';
+import { useState } from 'react';
+import { getSortOffers } from '../../utils';
+import { MapHocProps } from '../../hocs/with-map';
 
 type MainScreenProps = {
   city: string;
@@ -11,8 +13,15 @@ type MainScreenProps = {
   cities: string[],
 }
 
-function MainScreen({city, offers, cities}: MainScreenProps): JSX.Element {
-  const filteredOffers = offers.filter((offer) => offer.city.name === city);
+function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScreenProps & MapHocProps): JSX.Element {
+
+  const [activeSortType, setActiveSortType] = useState(SortType.Popular);
+  const locationOffers = offers.filter((offer) => offer.city.name === city);
+  const sortOffers = getSortOffers(activeSortType, [...locationOffers]);
+  const currentCity = sortOffers[0].city;
+  const handleSortType = (type: string) => {
+    setActiveSortType(type);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -52,7 +61,7 @@ function MainScreen({city, offers, cities}: MainScreenProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
 
-            <LocationContainer cities={cities}/>
+            <LocationsList cities={cities}/>
 
           </section>
         </div>
@@ -60,40 +69,18 @@ function MainScreen({city, offers, cities}: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
-              {/* <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li
-                    className="places__option places__option--active"
-                    tabIndex={0}
-                  >
-                    Popular
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                    Price: low to high
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                    Price: high to low
-                  </li>
-                  <li className="places__option" tabIndex={0}>
-                    Top rated first
-                  </li>
-                </ul>
-              </form> */}
+              <b className="places__found">{locationOffers.length} places to stay in {city}</b>
 
-              <CitiesPlacesList offers={filteredOffers} isTextClassName={isTextClassName.cities}/>
+              <PlacesSorting
+                onChangeSortType={handleSortType}
+              />
+
+              {renderOffersList(sortOffers, PlaceType.Cities)}
 
             </section>
             <div className="cities__right-section">
 
-              <Map city={offers[0].city} offers={offers} isTextClassName={isTextClassName.cities} />
+              {renderMap(locationOffers, currentCity, PlaceType.Cities)}
 
             </div>
           </div>

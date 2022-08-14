@@ -1,19 +1,18 @@
 import { OfferTypes } from '../../types/offer-type';
 import Logo from '../../components/logo/logo';
 import { useParams, Navigate } from 'react-router-dom';
-import { AppRoute, SettingCount, isTextClassName } from '../../const';
+import { AppRoute, SettingCount, PlaceType } from '../../const';
 import { getRatingStars } from '../../utils';
 import CommentsList from '../../components/comments-list/comments-list';
 import { comments } from '../../mocks/comments';
 import ReviewForm from '../../components/review-form/review-form';
-import Map from '../../components/map/map';
-import CitiesPlacesList from '../../components/cities-places-list/cities-places-list';
+import { MapHocProps } from '../../hocs/with-map';
 
 type RoomScreenProps = {
   offers: OfferTypes;
 }
 
-function RoomScreen({offers}: RoomScreenProps): JSX.Element {
+function RoomScreen({offers, renderMap, renderOffersList}: RoomScreenProps & MapHocProps): JSX.Element {
 
   const { id } = useParams();
   const roomOffer = offers.find((offer) => offer.id === Number(id));
@@ -38,7 +37,7 @@ function RoomScreen({offers}: RoomScreenProps): JSX.Element {
     (element) => <li key={element} className="property__inside-item">{element}</li>
   );
 
-  // const reviewsItem = comments.filter((comment) => comment.id === Number(id));
+  // const reviewsItem = comments.filter((comment) => comment.id === Number(id)); // нужен ли id отдельно
 
   return (
     <div className="page">
@@ -71,7 +70,7 @@ function RoomScreen({offers}: RoomScreenProps): JSX.Element {
           <div className="property__gallery-container container">
             <div className="property__gallery">
 
-              {/* вынести в отдельный компонент <property-gallery/> и  <property-image/> */}
+              {/* вынести в отдельный компонент <property-gallery/> и <property-image/> */}
               {propertyImageElements}
 
             </div>
@@ -154,16 +153,13 @@ function RoomScreen({offers}: RoomScreenProps): JSX.Element {
             </div>
           </div>
 
-          <Map city={offers[0].city} offers={otherPlaces} isTextClassName={isTextClassName.property}/>
+          {renderMap(offers.slice(0, 3), offers[0].city, PlaceType.Property)}
 
         </section>
         <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-            <CitiesPlacesList offers={otherPlaces} isTextClassName={isTextClassName.property}/>
+          {renderOffersList(offers.slice(0, 3), PlaceType.NearPlaces)}
 
-          </section>
         </div>
       </main>
     </div>
