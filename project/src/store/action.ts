@@ -1,7 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 import { OfferTypes } from '../types/offer-type';
+import { AuthorizationStatus } from '../const';
 
-const changeCity = createAction<{ city: string }>('changeCity');
-const loadOffers = createAction<{ offersList: OfferTypes }>('loadOffers');
-
-export { changeCity, loadOffers };
+export const changeCity = createAction<{ city: string }>('changeCity');
+export const loadOffers = createAction<OfferTypes>('loadOffers');
+export const setDataUploadStatus = createAction<boolean>('uploadStatus');
+export const requireAuthorization = createAction<AuthorizationStatus>('requireAuthorization');

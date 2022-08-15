@@ -2,10 +2,6 @@ export type Place = {
   [key: string]: string,
 };
 
-// export type PlaceType = {
-//   [key: string]: boolean,
-// };
-
 export type ElementType = {
   [key: number]: string,
 };
@@ -60,6 +56,8 @@ export enum Pin {
 }
 
 export const DEFAULT_CITY_NAME = 'Paris';
+export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
+export const REQUEST_TIMEOUT = 5000;
 
 export enum PlaceType {
   Cities = 'cities',
@@ -82,4 +80,10 @@ export const SortType = {
   PriceHighToLow: 'Price: high to low',
   TopRatedFirst: 'Top rated first',
 };
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
 
