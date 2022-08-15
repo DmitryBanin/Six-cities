@@ -8,7 +8,7 @@ import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks/index';
 import { withMap } from '../../hocs/with-map';
-// import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 type AppProps = {
   cities: string[];
@@ -18,13 +18,14 @@ const MainScreenWithMap = withMap(MainScreen);
 const RoomScreenWithMap = withMap(RoomScreen);
 
 function App({ cities }: AppProps): JSX.Element {
-  const { offersList, city } = useAppSelector((state) => state);
 
-  // if (isCheckedAuth(authorizationStatus) || isDataLoaded) {
-  //   return (
-  //     <LoadingScreen />
-  //   );
-  // }
+  const { isDataLoaded, offersList, city } = useAppSelector((state) => state);
+
+  if (isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <BrowserRouter>
