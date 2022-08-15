@@ -1,4 +1,4 @@
-function Spinner(): JSX.Element {
+function LoadingScreen(): JSX.Element {
 
   return (
     <div className="spin-wrapper">
@@ -8,5 +8,5 @@ function Spinner(): JSX.Element {
   );
 }
 
-export default Spinner;
+export default LoadingScreen;
 
