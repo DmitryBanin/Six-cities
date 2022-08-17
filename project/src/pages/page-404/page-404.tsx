@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+import './not-found-screen.css';
 
 function Page404(): JSX.Element {
   return (

@@ -6,6 +6,7 @@ import PlacesSorting from '../../components/places-sorting/places-sorting';
 import { useState } from 'react';
 import { getSortOffers } from '../../utils';
 import { MapHocProps } from '../../hocs/with-map';
+import Nav from '../../components/nav/nav';
 
 type MainScreenProps = {
   city: string;
@@ -19,6 +20,7 @@ function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScr
   const locationOffers = offers.filter((offer) => offer.city.name === city);
   const sortOffers = getSortOffers(activeSortType, [...locationOffers]);
   const currentCity = sortOffers[0].city;
+
   const handleSortType = (type: string) => {
     setActiveSortType(type);
   };
@@ -30,6 +32,7 @@ function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScr
           <div className="header__wrapper">
 
             <Logo />
+            <Nav />
 
             <nav className="header__nav">
               <ul className="header__nav-list">

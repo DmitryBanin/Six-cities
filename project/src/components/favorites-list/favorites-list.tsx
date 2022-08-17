@@ -1,16 +1,31 @@
-import {OfferTypes, OfferType} from '../../types/offer-type';
-import FavoritesPlaces from '../../components/favorites-places/favorites-places';
+import { OfferTypes } from '../../types/offer-type';
+import FavoritesPlaces from '../favorites-card/favorites-card';
 
 type FavoritesListProps = {
     offers: OfferTypes;
 };
 
-function FavoritesList(props: FavoritesListProps): JSX.Element {
-  const {offers} = props;
+function FavoritesList({offers}: FavoritesListProps): JSX.Element {
+  const favoriteOffers = [...new Set(offers.map((offer) => offer.city.name))];
 
   return (
     <ul className="favorites__list">
-      {offers.map((offer: OfferType) => <FavoritesPlaces key={offer.id} offer={offer} /> )}
+      {favoriteOffers.map((city): JSX.Element => (
+        <li key={city} className="favorites__locations-items">
+          <div className="favorites__locations locations locations--current">
+            <div className="locations__item">
+              <a className="locations__item-link" href="https://www.google.com/">
+                <span>{city}</span>
+              </a>
+            </div>
+          </div>
+          <div className="favorites__places">
+            {offers
+              .filter((offer) => city === offer.city.name)
+              .map((offer) => <FavoritesPlaces key={offer.id} offer={offer} />)}
+          </div>
+        </li>
+      ))}
     </ul>
   );
 }

@@ -1,4 +1,4 @@
-import CitiesPlacesList from '../../components/cities-places-list/cities-places-list';
+import CitiesPlacesList from '../places-list/places-list';
 import { OfferTypes } from '../../types/offer-type';
 import { PlaceType } from '../../const';
 
