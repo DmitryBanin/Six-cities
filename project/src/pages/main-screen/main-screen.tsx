@@ -6,6 +6,7 @@ import PlacesSorting from '../../components/places-sorting/places-sorting';
 import { useState } from 'react';
 import { getSortOffers } from '../../utils';
 import { MapHocProps } from '../../hocs/with-map';
+import Nav from '../../components/nav/nav';
 
 type MainScreenProps = {
   city: string;
@@ -19,6 +20,7 @@ function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScr
   const locationOffers = offers.filter((offer) => offer.city.name === city);
   const sortOffers = getSortOffers(activeSortType, [...locationOffers]);
   const currentCity = sortOffers[0].city;
+
   const handleSortType = (type: string) => {
     setActiveSortType(type);
   };
@@ -30,32 +32,11 @@ function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScr
           <div className="header__wrapper">
 
             <Logo />
+            <Nav />
 
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="#"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      Login
-                    </span>
-                    {/* <span className="header__favorite-count">3</span> */}
-                  </a>
-                </li>
-                {/* <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li> */}
-              </ul>
-            </nav>
           </div>
         </div>
       </header>
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

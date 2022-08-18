@@ -1,5 +1,5 @@
 import { OfferTypes, OfferType } from './types/offer-type';
-import { SortType } from './const';
+import { SortType, AuthorizationStatus } from './const';
 
 export const getRatingStars = (rating: number) => {
   const ratingStars = Math.round(rating);
@@ -32,3 +32,6 @@ export const getSortOffers = (type: string, offers: OfferTypes) => {
   }
 };
 
+
+export const isAuthorized = ( authStatus: AuthorizationStatus ): boolean =>
+  authStatus === AuthorizationStatus.Auth;

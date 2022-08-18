@@ -5,8 +5,9 @@ import { AppRoute, SettingCount, PlaceType } from '../../const';
 import { getRatingStars } from '../../utils';
 import CommentsList from '../../components/comments-list/comments-list';
 import { comments } from '../../mocks/comments';
-import ReviewForm from '../../components/review-form/review-form';
+import ReviewsForm from '../../components/reviews-form/reviews-form';
 import { MapHocProps } from '../../hocs/with-map';
+import Nav from '../../components/nav/nav';
 
 type RoomScreenProps = {
   offers: OfferTypes;
@@ -45,6 +46,7 @@ function RoomScreen({offers, renderMap, renderOffersList}: RoomScreenProps & Map
         <div className="container">
           <div className="header__wrapper">
             <Logo />
+            <Nav />
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
@@ -147,7 +149,7 @@ function RoomScreen({offers, renderMap, renderOffersList}: RoomScreenProps & Map
 
                 <CommentsList reviewsItem={comments}/>
 
-                <ReviewForm />
+                <ReviewsForm />
 
               </section>
             </div>

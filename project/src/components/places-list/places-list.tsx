@@ -1,4 +1,4 @@
-import CitiesCard from '../cities-card/cities-card';
+import CitiesCard from '../place-card/place-card';
 import { OfferTypes } from '../../types/offer-type';
 import { PlaceType } from '../../const';
 

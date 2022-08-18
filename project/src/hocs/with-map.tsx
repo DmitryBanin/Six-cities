@@ -2,7 +2,7 @@ import { ComponentType, useState } from 'react';
 import { OfferTypes, City } from '../types/offer-type';
 import { PlaceType } from '../const';
 import Map from '../components/map/map';
-import CitiesPlacesList from '../components/cities-places-list/cities-places-list';
+import CitiesPlacesList from '../components/places-list/places-list';
 import NearPlaces from '../components/near-places/near-places';
 
 export type MapHocProps = {
