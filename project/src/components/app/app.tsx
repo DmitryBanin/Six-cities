@@ -9,6 +9,7 @@ import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks/index';
 import { withMap } from '../../hocs/with-map';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import React from 'react';
 
 type AppProps = {
   cities: string[];
@@ -21,7 +22,7 @@ function App({ cities }: AppProps): JSX.Element {
 
   const { isDataLoaded, offersList, city } = useAppSelector((state) => state);
 
-  if (isDataLoaded) {
+  if (!isDataLoaded) {
     return (
       <LoadingScreen />
     );

@@ -7,16 +7,15 @@ type InitialState = {
   city: string,
   offersList: OfferTypes;
   isDataLoaded: boolean;
-  authorizationStatus: string;
+  authorizationStatus: AuthorizationStatus;
 }
 
 const initialState: InitialState = {
   city: DEFAULT_CITY_NAME,
   offersList: [],
-  isDataLoaded: true,
+  isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
 };
-
 
 const reducer = createReducer(initialState, (builder) => {
   builder
