@@ -11,6 +11,7 @@ type CitiesCardProps = {
 };
 
 function CitiesCard({offer, onHoverCard, placeType}: CitiesCardProps): JSX.Element {
+
   const {previewImage, price, title, type, rating, isPremium, isFavorite, id} = offer;
   const handleMouseOver = (evt: MouseEvent<HTMLElement>) => onHoverCard(offer.id);
   const handleMouseLeave = (evt: MouseEvent<HTMLElement>) => onHoverCard(null);
@@ -23,7 +24,9 @@ function CitiesCard({offer, onHoverCard, placeType}: CitiesCardProps): JSX.Eleme
     >
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className={`${placeType ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link
+          to={`${AppRoute.Room}/${offer.id}`}
+        >
           <img
             className="place-card__image"
             src={previewImage}
@@ -31,7 +34,7 @@ function CitiesCard({offer, onHoverCard, placeType}: CitiesCardProps): JSX.Eleme
             height="200"
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">

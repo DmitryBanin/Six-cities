@@ -1,25 +1,50 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, loadOffers, setDataUploadStatus, requireAuthorization, setServerError } from './action';
+import {
+  changeCity,
+  loadOffers,
+  setLoadOffersStatus,
+  requireAuthorization,
+  setServerError,
+  loadOffer,
+  loadNearByOffers,
+  loadComments,
+  setUserName,
+  setLoadActiveOfferStatus,
+  setSendNewCommentStatus,
+} from './action';
 import { DEFAULT_CITY_NAME, AuthorizationStatus } from '../const';
-import { OfferTypes } from '../types/offer-type';
+import { OfferTypes, OfferType } from '../types/offer-type';
+import { CommentType } from '../types/comment-type';
 
-type InitialState = {
-  city: string,
+type initialStateType = {
+  city: string;
   offersList: OfferTypes;
-  isDataLoaded: boolean;
+  activeOffer: OfferType | null;
+  comments: CommentType[];
+  nearByOffers: OfferTypes;
+  isOffersListLoading: boolean;
+  isActiveOfferLoading: boolean;
+  isNewCommentSending: boolean;
   authorizationStatus: AuthorizationStatus;
   serverError: string | null;
-}
-
-const initialState: InitialState = {
-  city: DEFAULT_CITY_NAME,
-  offersList: [],
-  isDataLoaded: false,
-  authorizationStatus: AuthorizationStatus.Unknown,
-  serverError: null,
+  userName: string;
 };
 
-const reducer = createReducer(initialState, (builder) => {
+const initialState: initialStateType = {
+  city: DEFAULT_CITY_NAME,
+  offersList: [],
+  activeOffer: null,
+  comments: [],
+  nearByOffers: [],
+  isOffersListLoading: false,
+  isActiveOfferLoading: false,
+  isNewCommentSending: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  serverError: null,
+  userName: '',
+};
+
+export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
       state.city = action.payload.city;
@@ -27,15 +52,31 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadOffers, (state, action) => {
       state.offersList = action.payload;
     })
-    .addCase(setDataUploadStatus, (state, action) => {
-      state.isDataLoaded = action.payload;
+    .addCase(setLoadOffersStatus, (state, action) => {
+      state.isOffersListLoading = action.payload;
+    })
+    .addCase(loadOffer, (state, action) => {
+      state.activeOffer = action.payload;
+    })
+    .addCase(setLoadActiveOfferStatus, (state, action) => {
+      state.isActiveOfferLoading = action.payload;
+    })
+    .addCase(loadNearByOffers, (state, action) => {
+      state.nearByOffers = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(setSendNewCommentStatus, (state, action) => {
+      state.isNewCommentSending = action.payload;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserName, (state, action) => {
+      state.userName = action.payload;
     })
     .addCase(setServerError, (state, action) => {
       state.serverError = action.payload;
     });
 });
-
-export {reducer};

@@ -48,6 +48,8 @@ export enum SettingCount {
   MAX_RATING = 5,
   IMAGE_COUNT = 6,
   COMMENTS_COUNT = 10,
+  MAX_COMMENTS_LENGTH = 300,
+  MIN_COMMENTS_LENGTH = 50,
 }
 
 export enum Pin {
@@ -58,6 +60,7 @@ export enum Pin {
 export const DEFAULT_CITY_NAME = 'Paris';
 export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
+export const AUTH_TOKEN = 'six-cities-token';
 
 export enum PlaceType {
   Cities = 'cities',
@@ -65,14 +68,14 @@ export enum PlaceType {
   NearPlaces = 'near-places',
 }
 
-export const cities = [
+export const CITIES = [
   'Paris',
   'Cologne',
   'Brussels',
   'Amsterdam',
   'Hamburg',
   'Dusseldorf',
-];
+] as const;
 
 export const SortType = {
   Popular: 'Popular',
@@ -85,5 +88,5 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments',
 }
-
