@@ -1,4 +1,4 @@
-export type Place = {
+export type PlaceType = {
   [key: string]: string,
 };
 
@@ -29,7 +29,7 @@ export enum RatingStars {
   Star_5 = '100%'
 }
 
-export const place: Place = {
+export const Place: PlaceType = {
   apartment: 'Apartment',
   room: 'Private Room',
   house: 'House',
@@ -44,7 +44,7 @@ export const ratingTitle: ElementType = {
   5: 'perfect',
 };
 
-export enum SettingCount {
+export enum Settings {
   MAX_RATING = 5,
   IMAGE_COUNT = 6,
   COMMENTS_COUNT = 10,
@@ -61,8 +61,9 @@ export const DEFAULT_CITY_NAME = 'Paris';
 export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const AUTH_TOKEN = 'six-cities-token';
+export const NOT_ACTIVE_STAR = '#c7c7c7';
 
-export enum PlaceType {
+export enum TypeClassName {
   Cities = 'cities',
   Property = 'property',
   NearPlaces = 'near-places',

@@ -3,10 +3,12 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
 import { SyntheticEvent } from 'react';
+import { getAuthorizationStatus, getUserName } from '../../store/selectors';
 
 function Nav(): JSX.Element {
 
-  const { authorizationStatus, userName } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userName = useAppSelector(getUserName);
 
   const dispatch = useAppDispatch();
   const handleLogOutClick = (evt: SyntheticEvent) => {

@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import { MouseEvent } from 'react';
-import { place, AppRoute } from '../../const';
+import { Place, AppRoute } from '../../const';
 import { OfferType } from '../../types/offer-type';
 import { getRatingStars } from '../../utils';
 
@@ -60,7 +60,7 @@ function CitiesCard({offer, onHoverCard, placeType}: CitiesCardProps): JSX.Eleme
             {title}
           </Link>
         </h2>
-        <p className="place-card__type">{place[type]}</p>
+        <p className="place-card__type">{Place[type]}</p>
       </div>
     </article>
   );

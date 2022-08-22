@@ -1,5 +1,5 @@
 import Logo from '../../components/logo/logo';
-import { SettingCount, PlaceType } from '../../const';
+import { Settings, PlaceType } from '../../const';
 import { getRatingStars } from '../../utils';
 import Reviews from '../../components/reviews/reviews';
 import { MapHocProps } from '../../hocs/with-map';
@@ -10,11 +10,14 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchOneOfferAction } from '../../store/api-actions';
 import { OfferType } from '../../types/offer-type';
+import { getComments, getNearbyOffers, getIsActiveOfferLoading, getActiveOffer } from '../../store/selectors';
 
 function RoomScreen({renderMap, renderOffersList}: MapHocProps): JSX.Element {
 
-  const { comments, nearByOffers, isActiveOfferLoading } = useAppSelector((state) => state);
-  const activeOffer = useAppSelector((state) => state.activeOffer) as OfferType;
+  const activeOffer = useAppSelector(getActiveOffer) as OfferType;
+  const isActiveOfferLoading = useAppSelector(getIsActiveOfferLoading);
+  const comments = useAppSelector(getComments);
+  const nearByOffers = useAppSelector(getNearbyOffers);
 
   const dispatch = useAppDispatch();
 
@@ -34,7 +37,7 @@ function RoomScreen({renderMap, renderOffersList}: MapHocProps): JSX.Element {
     <div key={img} className="property__image-wrapper">
       <img className="property__image" src={img} alt={`Room ${activeOffer.id}`} />
     </div>
-  )).slice(0, SettingCount.IMAGE_COUNT);
+  )).slice(0, Settings.IMAGE_COUNT);
 
   const propertyInsideListElements = activeOffer.goods.map(
     (element) => <li key={element} className="property__inside-item">{element}</li>

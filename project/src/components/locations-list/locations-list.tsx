@@ -2,6 +2,7 @@ import LocationItem from '../locations-item/locations-item';
 import { changeCity } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { CITIES } from '../../const';
+import { getCity } from '../../store/selectors';
 
 type LocationListProps = {
   cities: typeof CITIES;
@@ -9,7 +10,7 @@ type LocationListProps = {
 
 function LocationsList({ cities }: LocationListProps): JSX.Element {
 
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getCity);
   const dispatch = useAppDispatch();
 
   const handleSelectCity = (name: string) => {

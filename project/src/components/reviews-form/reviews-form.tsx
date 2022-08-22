@@ -1,7 +1,8 @@
 import { useState, ChangeEvent, Fragment, FormEvent } from 'react';
-import { SettingCount, ratingTitle } from '../../const';
+import { Settings, ratingTitle, NOT_ACTIVE_STAR } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendNewComment } from '../../store/api-actions';
+import { getIsNewCommentSending } from '../../store/selectors';
 
 type ReviewFormProps = {
   roomId: number;
@@ -12,12 +13,10 @@ type NewReview = {
   comment: string;
 };
 
-const NOT_ACTIVE_STAR = '#c7c7c7';
-
 function ReviewsForm({ roomId }: ReviewFormProps): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const { isNewCommentSending } = useAppSelector((state) => state);
+  const isNewCommentSending = useAppSelector(getIsNewCommentSending);
 
   const [newComment, setNewComment] = useState<NewReview>({ rating: 0, comment: '' });
 
@@ -29,7 +28,7 @@ function ReviewsForm({ roomId }: ReviewFormProps): JSX.Element {
     setNewComment({ rating: 0, comment: '' });
   };
 
-  const isNewCommentLengthValid = newComment.comment.length <= SettingCount.MAX_COMMENTS_LENGTH && newComment.comment.length >= SettingCount.MIN_COMMENTS_LENGTH;
+  const isNewCommentLengthValid = newComment.comment.length <= Settings.MAX_COMMENTS_LENGTH && newComment.comment.length >= Settings.MIN_COMMENTS_LENGTH;
   const isSubmitAvailable = (newComment.rating && isNewCommentLengthValid) || isNewCommentSending;
 
   return (
@@ -44,8 +43,8 @@ function ReviewsForm({ roomId }: ReviewFormProps): JSX.Element {
       </label>
       <div className="reviews__rating-form form__rating">
         {
-          [...new Array(SettingCount.MAX_COMMENTS_LENGTH)].map((_, index) => {
-            const starNumber = SettingCount.MAX_COMMENTS_LENGTH - index;
+          [...new Array(Settings.MAX_COMMENTS_LENGTH)].map((_, index) => {
+            const starNumber = Settings.MAX_COMMENTS_LENGTH - index;
             return (
               <Fragment key={starNumber}>
                 <input
@@ -83,7 +82,7 @@ function ReviewsForm({ roomId }: ReviewFormProps): JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={newComment.comment}
-        maxLength={SettingCount.MAX_COMMENTS_LENGTH}
+        maxLength={Settings.MAX_COMMENTS_LENGTH}
         onChange={handleTextChange}
         disabled={isNewCommentSending}
       >
@@ -93,7 +92,7 @@ function ReviewsForm({ roomId }: ReviewFormProps): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe your stay
-          with at least <b className="reviews__text-amount">{SettingCount.MIN_COMMENTS_LENGTH} characters</b>.
+          with at least <b className="reviews__text-amount">{Settings.MIN_COMMENTS_LENGTH} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

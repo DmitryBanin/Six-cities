@@ -11,6 +11,7 @@ import { withMap } from '../../hocs/with-map';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-router/history-router';
 import { browserHistory } from '../../browser-history';
+import { getIsOffersListLoading, getOffers, getCity, getAuthorizationStatus } from '../../store/selectors';
 
 type AppProps = {
   cities: typeof CITIES;
@@ -21,7 +22,12 @@ const RoomScreenWithMap = withMap(RoomScreen);
 
 function App({ cities }: AppProps): JSX.Element {
 
-  const { isOffersListLoading, offersList, city, authorizationStatus } = useAppSelector((state) => state);
+  // const { isOffersListLoading, offersList, city, authorizationStatus } = useAppSelector((state) => state);
+
+  const isOffersListLoading = useAppSelector(getIsOffersListLoading);
+  const offers = useAppSelector(getOffers);
+  const city = useAppSelector(getCity);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (isOffersListLoading) {
     return (
@@ -35,7 +41,7 @@ function App({ cities }: AppProps): JSX.Element {
         <Route path={AppRoute.Main}>
           <Route index element={
             <MainScreenWithMap
-              offers={offersList}
+              offers={offers}
               city={city}
               cities={cities}
             />
@@ -52,7 +58,7 @@ function App({ cities }: AppProps): JSX.Element {
                 authorizationStatus={authorizationStatus}
               >
                 <FavotitesScreen
-                  offers={offersList}
+                  offers={offers}
                 />
               </PrivateRoute>
             }
