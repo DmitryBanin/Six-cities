@@ -1,13 +1,13 @@
 import { ComponentType, useState } from 'react';
 import { OfferTypes, City } from '../types/offer-type';
-import { PlaceType } from '../const';
+import { TypeClassName } from '../const';
 import Map from '../components/map/map';
-import CitiesPlacesList from '../components/places-list/places-list';
+import PlacesList from '../components/places-list/places-list';
 import NearPlaces from '../components/near-places/near-places';
 
 export type MapHocProps = {
-  renderMap: (offers: OfferTypes, city: City, placeType: PlaceType) => JSX.Element;
-  renderOffersList: (offers: OfferTypes, placeType: PlaceType) => JSX.Element;
+  renderMap: (offers: OfferTypes, city: City, placeType: TypeClassName) => JSX.Element;
+  renderOffersList: (offers: OfferTypes, placeType: TypeClassName) => JSX.Element;
 };
 
 export function withMap<T>(Component: ComponentType<T & MapHocProps>)
@@ -23,7 +23,7 @@ export function withMap<T>(Component: ComponentType<T & MapHocProps>)
     return (
       <Component
         {...props as T}
-        renderMap={(offers: OfferTypes, city: City, placeType: PlaceType) => (
+        renderMap={(offers: OfferTypes, city: City, placeType: TypeClassName) => (
           <Map
             offers={offers}
             activeCard={activeCard}
@@ -31,8 +31,8 @@ export function withMap<T>(Component: ComponentType<T & MapHocProps>)
             placeType={placeType}
           />
         )}
-        renderOffersList={(offers: OfferTypes, placeType: PlaceType) => (
-          placeType === PlaceType.NearPlaces
+        renderOffersList={(offers: OfferTypes, placeType: TypeClassName) => (
+          placeType === TypeClassName.NearPlaces
             ?
             <NearPlaces
               offers={offers}
@@ -40,7 +40,7 @@ export function withMap<T>(Component: ComponentType<T & MapHocProps>)
               onHoverCard={handleCardHover}
             />
             :
-            <CitiesPlacesList
+            <PlacesList
               offers={offers}
               placeType={placeType}
               onHoverCard={handleCardHover}

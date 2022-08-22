@@ -1,10 +1,10 @@
-import CitiesPlacesList from '../places-list/places-list';
+import PlacesList from '../places-list/places-list';
 import { OfferTypes } from '../../types/offer-type';
-import { PlaceType } from '../../const';
+import { TypeClassName } from '../../const';
 
 type NearPlacesProps = {
   offers: OfferTypes;
-  placeType: PlaceType,
+  placeType: TypeClassName,
   onHoverCard: (id: number | null) => void;
 };
 
@@ -12,7 +12,7 @@ function NearPlaces({ offers, placeType, onHoverCard }: NearPlacesProps): JSX.El
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
-      <CitiesPlacesList offers={offers} placeType={placeType} onHoverCard={onHoverCard} />
+      <PlacesList offers={offers} placeType={placeType} onHoverCard={onHoverCard} />
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import Logo from '../../components/logo/logo';
-import { Settings, PlaceType } from '../../const';
+import { Settings, TypeClassName } from '../../const';
 import { getRatingStars } from '../../utils';
 import Reviews from '../../components/reviews/reviews';
 import { MapHocProps } from '../../hocs/with-map';
@@ -127,10 +127,10 @@ function RoomScreen({renderMap, renderOffersList}: MapHocProps): JSX.Element {
               </section>
             </div>
           </div>
-          {renderMap(nearByOffers.slice(0, 3), currentCity, PlaceType.Property)}
+          {renderMap(nearByOffers.slice(0, 3), currentCity, TypeClassName.Property)}
         </section>
         <div className="container">
-          {renderOffersList(nearByOffers.slice(0, 3), PlaceType.NearPlaces)}
+          {renderOffersList(nearByOffers.slice(0, 3), TypeClassName.NearPlaces)}
         </div>
       </main>
     </div>
