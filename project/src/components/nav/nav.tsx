@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks/index';
 import { logoutAction } from '../../store/api-actions';
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, memo } from 'react';
 import { getAuthorizationStatus, getUserName } from '../../store/selectors';
 
 function Nav(): JSX.Element {
@@ -50,4 +50,4 @@ function Nav(): JSX.Element {
   );
 }
 
-export default Nav;
+export default memo(Nav);

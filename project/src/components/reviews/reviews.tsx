@@ -4,6 +4,7 @@ import { CommentType } from '../../types/comment-type';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/selectors';
+import { memo } from 'react';
 
 type ReviewsProps = {
   reviews: CommentType[],
@@ -24,4 +25,4 @@ function Reviews({ reviews, roomId }: ReviewsProps): JSX.Element {
   );
 }
 
-export default Reviews;
+export default memo(Reviews);

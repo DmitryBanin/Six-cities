@@ -1,9 +1,9 @@
 import Logo from '../../components/logo/logo';
 import { OfferTypes } from '../../types/offer-type';
-import { PlaceType, SortType, CITIES } from '../../const';
+import { TypeClassName, SortType, CITIES } from '../../const';
 import LocationsList from '../../components/locations-list/locations-list';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { getSortOffers } from '../../utils';
 import { MapHocProps } from '../../hocs/with-map';
 import Nav from '../../components/nav/nav';
@@ -21,9 +21,9 @@ function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScr
   const sortOffers = getSortOffers(activeSortType, [...locationOffers]);
   const currentCity = sortOffers[0].city;
 
-  const handleSortType = (type: string) => {
+  const handleSortType = useCallback((type: string) => {
     setActiveSortType(type);
-  };
+  }, []);
 
   return (
     <div className="page page--gray page--main">
@@ -48,12 +48,13 @@ function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScr
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{locationOffers.length} places to stay in {city}</b>
               <PlacesSorting
+                activeSortType={activeSortType}
                 onChangeSortType={handleSortType}
               />
-              {renderOffersList(sortOffers, PlaceType.Cities)}
+              {renderOffersList(sortOffers, TypeClassName.Cities)}
             </section>
             <div className="cities__right-section">
-              {renderMap(locationOffers, currentCity, PlaceType.Cities)}
+              {renderMap(locationOffers, currentCity, TypeClassName.Cities)}
             </div>
           </div>
         </div>
