@@ -2,7 +2,6 @@ import Logo from '../../components/logo/logo';
 import { Settings, TypeClassName } from '../../const';
 import { getRatingStars } from '../../utils';
 import Reviews from '../../components/reviews/reviews';
-import { MapHocProps } from '../../hocs/with-map';
 import Nav from '../../components/nav/nav';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
@@ -10,14 +9,17 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchOneOfferAction } from '../../store/api-actions';
 import { OfferType } from '../../types/offer-type';
-import { getComments, getNearbyOffers, getIsActiveOfferLoading, getActiveOffer } from '../../store/selectors';
+import { getComments, getNearByOffers, getIsActiveOfferLoading, getActiveOffer } from '../../store/data-process/selectors';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
+import Map from '../../components/map/map';
+import NearPlaces from '../../components/near-places/near-places';
 
-function RoomScreen({renderMap, renderOffersList}: MapHocProps): JSX.Element {
+function RoomScreen(): JSX.Element {
 
   const activeOffer = useAppSelector(getActiveOffer) as OfferType;
   const isActiveOfferLoading = useAppSelector(getIsActiveOfferLoading);
   const comments = useAppSelector(getComments);
-  const nearByOffers = useAppSelector(getNearbyOffers);
+  const nearByOffers = useAppSelector(getNearByOffers);
 
   const dispatch = useAppDispatch();
 
@@ -67,12 +69,11 @@ function RoomScreen({renderMap, renderOffersList}: MapHocProps): JSX.Element {
                 <h1 className="property__name">
                   {activeOffer.title}
                 </h1>
-                <button className={`property__bookmark-button ${activeOffer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavoriteButton
+                  isFavorite={activeOffer.isFavorite}
+                  screen={TypeClassName.Property}
+                  id={activeOffer.id}
+                />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -127,10 +128,18 @@ function RoomScreen({renderMap, renderOffersList}: MapHocProps): JSX.Element {
               </section>
             </div>
           </div>
-          {renderMap(nearByOffers.slice(0, 3), currentCity, TypeClassName.Property)}
+          < Map
+            offers={[...nearByOffers, activeOffer]}
+            city={currentCity}
+            placeType={TypeClassName.Property}
+            activeCard={activeOffer.id}
+          />
         </section>
         <div className="container">
-          {renderOffersList(nearByOffers.slice(0, 3), TypeClassName.NearPlaces)}
+          <NearPlaces
+            offers={nearByOffers}
+            placeType={TypeClassName.NearPlaces}
+          />
         </div>
       </main>
     </div>

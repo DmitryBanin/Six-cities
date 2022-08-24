@@ -2,7 +2,7 @@ import { useState, ChangeEvent, Fragment, FormEvent } from 'react';
 import { Settings, ratingTitle, NOT_ACTIVE_STAR } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendNewComment } from '../../store/api-actions';
-import { getIsNewCommentSending } from '../../store/selectors';
+import { getIsNewCommentSending } from '../../store/data-process/selectors';
 
 type ReviewFormProps = {
   roomId: number;

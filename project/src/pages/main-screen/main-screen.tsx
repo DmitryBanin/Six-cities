@@ -5,8 +5,9 @@ import LocationsList from '../../components/locations-list/locations-list';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import { useState, useCallback } from 'react';
 import { getSortOffers } from '../../utils';
-import { MapHocProps } from '../../hocs/with-map';
 import Nav from '../../components/nav/nav';
+import Map from '../../components/map/map';
+import PlacesList from '../../components/places-list/places-list';
 
 type MainScreenProps = {
   city: string;
@@ -14,12 +15,19 @@ type MainScreenProps = {
   cities: typeof CITIES;
 }
 
-function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScreenProps & MapHocProps): JSX.Element {
+function MainScreen({ offers, city, cities }: MainScreenProps): JSX.Element {
 
   const [activeSortType, setActiveSortType] = useState(SortType.Popular);
   const locationOffers = offers.filter((offer) => offer.city.name === city);
   const sortOffers = getSortOffers(activeSortType, [...locationOffers]);
   const currentCity = sortOffers[0].city;
+
+  const [activeCardId, setActiveCardId] = useState<number | null>(null);
+
+  const handleCardHover = (id: number | null): void => {
+    setActiveCardId(id);
+  };
+
 
   const handleSortType = useCallback((type: string) => {
     setActiveSortType(type);
@@ -51,10 +59,10 @@ function MainScreen({city, offers, cities, renderMap, renderOffersList}: MainScr
                 activeSortType={activeSortType}
                 onChangeSortType={handleSortType}
               />
-              {renderOffersList(sortOffers, TypeClassName.Cities)}
+              < PlacesList offers={sortOffers} placeType={TypeClassName.Cities} onHoverCard={handleCardHover} />
             </section>
             <div className="cities__right-section">
-              {renderMap(locationOffers, currentCity, TypeClassName.Cities)}
+              < Map offers={locationOffers} city={currentCity} placeType={TypeClassName.Cities} activeCard={activeCardId} />
             </div>
           </div>
         </div>

@@ -1,17 +1,38 @@
 import Logo from '../../components/logo/logo';
 import FavoritesList from '../../components/favorites-list/favorites-list';
-import {OfferTypes} from '../../types/offer-type';
+import { OfferTypes } from '../../types/offer-type';
 import Nav from '../../components/nav/nav';
+import { useAppSelector } from '../../hooks';
+import { getFavoriteOffers } from '../../store/data-process/selectors';
 
-type FavoritesScreenProps = {
-  offers: OfferTypes;
-}
+type GroupOffer = {
+  [city: string]: OfferTypes;
+};
 
-function FavotitesScreen({offers}: FavoritesScreenProps): JSX.Element {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+function FavoritesScreen(): JSX.Element {
 
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+
+  const groupFavoriteOffers = (): GroupOffer => {
+    const groups: GroupOffer = {};
+
+    favoriteOffers.forEach((offer) => {
+
+      const city = offer.city.name;
+
+      if (city in groups) {
+        groups[city].push(offer);
+      } else {
+        groups[city] = [];
+        groups[city].push(offer);
+      }
+    });
+    return groups;
+  };
+
+  const groupedFavoriteOffersList = Object.entries(groupFavoriteOffers());
   const favoritesTitle = favoriteOffers.length ? 'Saved listing' : 'Favorites (empty)';
-  const favoritesAddedBlock = favoriteOffers.length ? <FavoritesList offers={favoriteOffers} /> : (
+  const favoritesAddedBlock = favoriteOffers.length ? <FavoritesList groupedOffers={groupedFavoriteOffersList} /> : (
     <div className="favorites__status-wrapper">
       <b className="favorites__status">Nothing yet saved.</b>
       <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
@@ -45,5 +66,5 @@ function FavotitesScreen({offers}: FavoritesScreenProps): JSX.Element {
   );
 }
 
-export default FavotitesScreen;
+export default FavoritesScreen;
 

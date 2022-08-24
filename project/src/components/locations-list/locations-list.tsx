@@ -1,8 +1,8 @@
 import LocationItem from '../locations-item/locations-item';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/city-process/city-process';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { CITIES } from '../../const';
-import { getCity } from '../../store/selectors';
+import { getCity } from '../../store/city-process/selectors';
 
 type LocationListProps = {
   cities: typeof CITIES;

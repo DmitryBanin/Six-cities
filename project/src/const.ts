@@ -30,10 +30,10 @@ export enum RatingStars {
 }
 
 export const Place: PlaceType = {
-  apartment: 'Apartment',
-  room: 'Private Room',
-  house: 'House',
-  hotel: 'Hotel',
+  'apartment': 'Apartment',
+  'room': 'Private Room',
+  'house': 'House',
+  'hotel': 'Hotel',
 };
 
 export const ratingTitle: ElementType = {
@@ -67,6 +67,7 @@ export enum TypeClassName {
   Cities = 'cities',
   Property = 'property',
   NearPlaces = 'near-places',
+  PlaceCard = 'place-card',
 }
 
 export const CITIES = [
@@ -90,4 +91,17 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+  Favorite = '/favorite',
 }
+
+export enum NameSpace {
+  User = 'User',
+  Data = 'Data',
+  City = 'City',
+  Favorite = 'Favorite',
+}
+
+export const PLACES_LIST_CLASSES: PlaceType = {
+  'cities': 'cities__places-list tabs__content',
+  'near-places': 'near-places__list',
+};

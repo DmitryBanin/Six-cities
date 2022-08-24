@@ -3,12 +3,14 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks/index';
 import { logoutAction } from '../../store/api-actions';
 import { SyntheticEvent, memo } from 'react';
-import { getAuthorizationStatus, getUserName } from '../../store/selectors';
+import { getAuthorizationStatus, getUserName } from '../../store/user-process/selectors';
+import { getFavoriteOffers } from '../../store/data-process/selectors';
 
 function Nav(): JSX.Element {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const userName = useAppSelector(getUserName);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   const dispatch = useAppDispatch();
   const handleLogOutClick = (evt: SyntheticEvent) => {
@@ -26,7 +28,7 @@ function Nav(): JSX.Element {
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
                 <span className="header__user-name user__name">{userName}</span>
-                <span className="header__favorite-count">3</span>
+                <span className="header__favorite-count">{favoriteOffers.length}</span>
               </Link>
             </li>
             <li className="header__nav-item">

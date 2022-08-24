@@ -3,7 +3,7 @@ import CommentsList from '../comments-list/comments-list';
 import { CommentType } from '../../types/comment-type';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { memo } from 'react';
 
 type ReviewsProps = {
