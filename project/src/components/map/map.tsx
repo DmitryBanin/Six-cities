@@ -3,12 +3,12 @@ import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { useRef, useEffect } from 'react';
-import { Pin, PlaceType } from '../../const';
+import { Pin, TypeClassName } from '../../const';
 
 type MapProps = {
     offers: OfferTypes;
     city: City;
-    placeType: PlaceType;
+    placeType: TypeClassName;
     activeCard: number | null;
   }
 

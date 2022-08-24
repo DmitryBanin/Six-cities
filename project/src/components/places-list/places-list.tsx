@@ -1,14 +1,14 @@
 import CitiesCard from '../place-card/place-card';
 import { OfferTypes } from '../../types/offer-type';
-import { PlaceType } from '../../const';
+import { TypeClassName } from '../../const';
 
 type CitiesPlacesListProps = {
     offers: OfferTypes;
-    placeType: PlaceType;
+    placeType: TypeClassName;
     onHoverCard: (id: number | null) => void;
   }
 
-function CitiesPlacesList({offers, placeType, onHoverCard}: CitiesPlacesListProps): JSX.Element {
+function PlacesList({offers, placeType, onHoverCard}: CitiesPlacesListProps): JSX.Element {
 
   return (
     <div className={`${placeType === 'cities' ? 'cities__places-list places__list tabs__content' : 'near-places__list places__list'}`}>
@@ -24,4 +24,4 @@ function CitiesPlacesList({offers, placeType, onHoverCard}: CitiesPlacesListProp
   );
 }
 
-export default CitiesPlacesList;
+export default PlacesList;

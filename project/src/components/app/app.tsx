@@ -1,31 +1,32 @@
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, CITIES } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
-import FavotitesScreen from '../../pages/favorites-screen/favorites-screen';
+import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import RoomScreen from '../../pages/room-screen/room-screen';
 import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks/index';
-import { withMap } from '../../hocs/with-map';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
-import React from 'react';
 import HistoryRouter from '../history-router/history-router';
 import { browserHistory } from '../../browser-history';
-// import { isUserAuthorized } from '../../utils';
+import { getIsOffersListLoading, getOffers } from '../../store/selectors';
+import { getCity } from '../../store/city-process/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import RestrictRoute from '../restrict-route/restrict-route';
 
 type AppProps = {
-  cities: string[];
+  cities: typeof CITIES;
 };
-
-const MainScreenWithMap = withMap(MainScreen);
-const RoomScreenWithMap = withMap(RoomScreen);
 
 function App({ cities }: AppProps): JSX.Element {
 
-  const { isDataLoaded, offersList, city, authorizationStatus } = useAppSelector((state) => state);
+  const isOffersListLoading = useAppSelector(getIsOffersListLoading);
+  const offers = useAppSelector(getOffers);
+  const city = useAppSelector(getCity);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  if (!isDataLoaded) {
+  if (isOffersListLoading) {
     return (
       <LoadingScreen />
     );
@@ -36,8 +37,8 @@ function App({ cities }: AppProps): JSX.Element {
       <Routes>
         <Route path={AppRoute.Main}>
           <Route index element={
-            <MainScreenWithMap
-              offers={offersList}
+            <MainScreen
+              offers={offers}
               city={city}
               cities={cities}
             />
@@ -45,7 +46,11 @@ function App({ cities }: AppProps): JSX.Element {
           />
           <Route
             path={AppRoute.Login}
-            element={<LoginScreen />}
+            element={
+              <RestrictRoute authStatus={authorizationStatus}>
+                <LoginScreen />
+              </RestrictRoute>
+            }
           />
           <Route
             path={AppRoute.Favorites}
@@ -53,19 +58,13 @@ function App({ cities }: AppProps): JSX.Element {
               <PrivateRoute
                 authorizationStatus={authorizationStatus}
               >
-                <FavotitesScreen
-                  offers={offersList}
-                />
+                <FavoritesScreen />
               </PrivateRoute>
             }
           />
           <Route
             path={`${AppRoute.Room}/:id`}
-            element={
-              <RoomScreenWithMap
-                offers={offersList}
-              />
-            }
+            element={<RoomScreen />}
           />
         </Route>
         <Route path={AppRoute.NotFound} element={<Page404 />} />

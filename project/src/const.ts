@@ -1,4 +1,4 @@
-export type Place = {
+export type PlaceType = {
   [key: string]: string,
 };
 
@@ -29,11 +29,11 @@ export enum RatingStars {
   Star_5 = '100%'
 }
 
-export const place: Place = {
-  apartment: 'Apartment',
-  room: 'Private Room',
-  house: 'House',
-  hotel: 'Hotel',
+export const Place: PlaceType = {
+  'apartment': 'Apartment',
+  'room': 'Private Room',
+  'house': 'House',
+  'hotel': 'Hotel',
 };
 
 export const ratingTitle: ElementType = {
@@ -44,10 +44,13 @@ export const ratingTitle: ElementType = {
   5: 'perfect',
 };
 
-export enum SettingCount {
+export enum Settings {
   MAX_RATING = 5,
   IMAGE_COUNT = 6,
   COMMENTS_COUNT = 10,
+  MAX_COMMENTS_LENGTH = 300,
+  MIN_COMMENTS_LENGTH = 50,
+  MAX_COMMENTS = 10,
 }
 
 export enum Pin {
@@ -58,21 +61,24 @@ export enum Pin {
 export const DEFAULT_CITY_NAME = 'Paris';
 export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
+export const AUTH_TOKEN = 'six-cities-token';
+export const NOT_ACTIVE_STAR = '#c7c7c7';
 
-export enum PlaceType {
+export enum TypeClassName {
   Cities = 'cities',
   Property = 'property',
   NearPlaces = 'near-places',
+  PlaceCard = 'place-card',
 }
 
-export const cities = [
+export const CITIES = [
   'Paris',
   'Cologne',
   'Brussels',
   'Amsterdam',
   'Hamburg',
   'Dusseldorf',
-];
+] as const;
 
 export const SortType = {
   Popular: 'Popular',
@@ -85,5 +91,18 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments',
+  Favorite = '/favorite',
 }
 
+export enum NameSpace {
+  User = 'User',
+  Data = 'Data',
+  City = 'City',
+  Favorite = 'Favorite',
+}
+
+export const PLACES_LIST_CLASSES: PlaceType = {
+  'cities': 'cities__places-list tabs__content',
+  'near-places': 'near-places__list',
+};

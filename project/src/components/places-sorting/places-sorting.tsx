@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { SortType } from '../../const';
 
 type PlacesSortingProps = {
   onChangeSortType: (sortType: string) => void,
+  activeSortType: string;
 };
 
-function PlacesSorting({onChangeSortType}: PlacesSortingProps): JSX.Element {
-  const [activeSortType, setActiveSortType] = useState(SortType.Popular);
+function PlacesSorting({activeSortType, onChangeSortType}: PlacesSortingProps): JSX.Element {
+
   const [isOpened, setIsOpened] = useState(false);
 
   const handleSelectSortType = (type: string) => {
-    setActiveSortType(type);
     onChangeSortType(type);
     setIsOpened(false);
   };
@@ -44,4 +44,4 @@ function PlacesSorting({onChangeSortType}: PlacesSortingProps): JSX.Element {
   );
 }
 
-export default PlacesSorting;
+export default memo(PlacesSorting);

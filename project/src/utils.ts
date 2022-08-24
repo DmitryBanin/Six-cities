@@ -1,5 +1,7 @@
 import { OfferTypes, OfferType } from './types/offer-type';
-import { SortType, AuthorizationStatus } from './const';
+import { SortType, AuthorizationStatus, Settings } from './const';
+import dayjs from 'dayjs';
+import { CommentType } from './types/comment-type';
 
 export const getRatingStars = (rating: number) => {
   const ratingStars = Math.round(rating);
@@ -35,3 +37,11 @@ export const getSortOffers = (type: string, offers: OfferTypes) => {
 
 export const isAuthorized = ( authStatus: AuthorizationStatus ): boolean =>
   authStatus === AuthorizationStatus.Auth;
+
+export const sortByDate = (commentA: CommentType, commentB: CommentType) => {
+  const timeA = dayjs(commentA.date);
+  const timeB = dayjs(commentB.date);
+  return timeB.diff(timeA);
+};
+
+export const prepareComments = (comments: CommentType[]): CommentType[] => [...comments].sort(sortByDate).slice(0, Settings.MAX_COMMENTS);

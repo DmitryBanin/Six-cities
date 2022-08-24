@@ -1,14 +1,16 @@
 import LocationItem from '../locations-item/locations-item';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/city-process/city-process';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
+import { CITIES } from '../../const';
+import { getCity } from '../../store/city-process/selectors';
 
 type LocationListProps = {
-  cities: string[];
+  cities: typeof CITIES;
 };
 
 function LocationsList({ cities }: LocationListProps): JSX.Element {
 
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(getCity);
   const dispatch = useAppDispatch();
 
   const handleSelectCity = (name: string) => {
