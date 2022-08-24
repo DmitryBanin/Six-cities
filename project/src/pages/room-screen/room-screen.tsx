@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchOneOfferAction } from '../../store/api-actions';
 import { OfferType } from '../../types/offer-type';
-import { getComments, getNearByOffers, getIsActiveOfferLoading, getActiveOffer } from '../../store/data-process/selectors';
+import { getNearByOffers, getIsActiveOfferLoading, getActiveOffer } from '../../store/data-process/selectors';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import Map from '../../components/map/map';
 import NearPlaces from '../../components/near-places/near-places';
@@ -18,7 +18,6 @@ function RoomScreen(): JSX.Element {
 
   const activeOffer = useAppSelector(getActiveOffer) as OfferType;
   const isActiveOfferLoading = useAppSelector(getIsActiveOfferLoading);
-  const comments = useAppSelector(getComments);
   const nearByOffers = useAppSelector(getNearByOffers);
 
   const dispatch = useAppDispatch();
@@ -122,10 +121,7 @@ function RoomScreen(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-                <Reviews reviews={comments} roomId={activeOffer.id}/>
-              </section>
+              <Reviews roomId={activeOffer.id} />
             </div>
           </div>
           < Map

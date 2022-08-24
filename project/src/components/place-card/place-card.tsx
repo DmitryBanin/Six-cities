@@ -5,17 +5,25 @@ import { OfferType } from '../../types/offer-type';
 import { getRatingStars } from '../../utils';
 import FavoriteButton from '../favorite-button/favorite-button';
 
-type CitiesCardProps = {
+type PlaceCardProps = {
   offer: OfferType;
   placeType: TypeClassName;
-  onHoverCard: (id: number | null) => void;
+  onHoverCard?: (id: number | null) => void;
 };
 
-function CitiesCard({offer, onHoverCard, placeType}: CitiesCardProps): JSX.Element {
+function PlaceCard({offer, placeType, onHoverCard}: PlaceCardProps): JSX.Element {
 
-  const {previewImage, price, title, type, rating, isPremium, id} = offer;
-  const handleMouseOver = (evt: MouseEvent<HTMLElement>) => onHoverCard(offer.id);
-  const handleMouseLeave = (evt: MouseEvent<HTMLElement>) => onHoverCard(null);
+  const handleMouseOver = (evt: MouseEvent<HTMLElement>) => {
+    if (onHoverCard !== undefined) {
+      return onHoverCard(offer.id);
+    }
+  };
+
+  const handleMouseLeave = (evt: MouseEvent<HTMLElement>) => {
+    if (onHoverCard !== undefined) {
+      return onHoverCard(null);
+    }
+  };
 
   return (
     <article
@@ -23,14 +31,14 @@ function CitiesCard({offer, onHoverCard, placeType}: CitiesCardProps): JSX.Eleme
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
     >
-      {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+      {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className={`${placeType ? 'cities' : 'near-places'}__image-wrapper place-card__image-wrapper`}>
         <Link
           to={`${AppRoute.Room}/${offer.id}`}
         >
           <img
             className="place-card__image"
-            src={previewImage}
+            src={offer.previewImage}
             width="260"
             height="200"
             alt="Place image"
@@ -40,7 +48,7 @@ function CitiesCard({offer, onHoverCard, placeType}: CitiesCardProps): JSX.Eleme
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{price}</b>
+            <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <FavoriteButton
@@ -51,20 +59,20 @@ function CitiesCard({offer, onHoverCard, placeType}: CitiesCardProps): JSX.Eleme
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: getRatingStars(rating)}}></span>
+            <span style={{width: getRatingStars(offer.rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Room}/${id}`}>
-            {title}
+          <Link to={`${AppRoute.Room}/${offer.id}`}>
+            {offer.title}
           </Link>
         </h2>
-        <p className="place-card__type">{Place[type]}</p>
+        <p className="place-card__type">{Place[offer.type]}</p>
       </div>
     </article>
   );
 }
 
-export default CitiesCard;
+export default PlaceCard;
 

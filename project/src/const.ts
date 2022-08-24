@@ -50,6 +50,7 @@ export enum Settings {
   COMMENTS_COUNT = 10,
   MAX_COMMENTS_LENGTH = 300,
   MIN_COMMENTS_LENGTH = 50,
+  MAX_COMMENTS = 10,
 }
 
 export enum Pin {
