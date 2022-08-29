@@ -1,15 +1,15 @@
 import Logo from '../../components/logo/logo';
-import { Settings, TypeClassName } from '../../const';
+import { Settings, TypeClassName, AppRoute } from '../../const';
 import { getRatingStars } from '../../utils';
 import Reviews from '../../components/reviews/reviews';
 import Nav from '../../components/nav/nav';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchOneOfferAction } from '../../store/api-actions';
 import { OfferType } from '../../types/offer-type';
-import { getNearByOffers, getIsActiveOfferLoading, getActiveOffer } from '../../store/data-process/selectors';
+import { getNearByOffers, getIsActiveOfferLoading, getActiveOffer, getIsActiveOfferError } from '../../store/data-process/selectors';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 import Map from '../../components/map/map';
 import NearPlaces from '../../components/near-places/near-places';
@@ -18,8 +18,10 @@ function RoomScreen(): JSX.Element {
 
   const activeOffer = useAppSelector(getActiveOffer) as OfferType;
   const isActiveOfferLoading = useAppSelector(getIsActiveOfferLoading);
+  const isActiveOfferError = useAppSelector(getIsActiveOfferError);
   const nearByOffers = useAppSelector(getNearByOffers);
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
@@ -27,6 +29,10 @@ function RoomScreen(): JSX.Element {
   useEffect(() => {
     dispatch(fetchOneOfferAction(id as string));
   }, [dispatch, id]);
+
+  if (isActiveOfferError) {
+    navigate(AppRoute.NotFound);
+  }
 
   if (isActiveOfferLoading || activeOffer === null) {
     return <LoadingScreen />;
@@ -127,7 +133,6 @@ function RoomScreen(): JSX.Element {
           < Map
             offers={[...nearByOffers, activeOffer]}
             city={currentCity}
-            placeType={TypeClassName.Property}
             activeCard={activeOffer.id}
           />
         </section>

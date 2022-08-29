@@ -5,6 +5,9 @@ export const getOffers = (state: State) => state[NameSpace.Data].offers;
 
 export const getActiveOffer = (state: State) => state[NameSpace.Data].activeOffer;
 
+export const getIsActiveOfferError = (state: State) =>
+  state[NameSpace.Data].isActiveOfferError;
+
 export const getComments = (state: State) => state[NameSpace.Data].comments;
 
 export const getNearByOffers = (state: State) => state[NameSpace.Data].nearByOffers;

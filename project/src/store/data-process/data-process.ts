@@ -8,6 +8,7 @@ import {
   fetchFavoriteOffersAction,
   toggleFavorite,
 } from '../api-actions';
+import { toast } from 'react-toastify';
 
 const initialState: DataProcess = {
   offers: [],
@@ -18,6 +19,7 @@ const initialState: DataProcess = {
   isActiveOfferLoading: false,
   isNewCommentSending: false,
   favoriteOffers: [],
+  isActiveOfferError: false,
 };
 
 export const dataProcess = createSlice({
@@ -35,12 +37,17 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchOneOfferAction.pending, (state) => {
         state.isActiveOfferLoading = true;
+        state.isActiveOfferError = false;
       })
       .addCase(fetchOneOfferAction.fulfilled, (state, action) => {
         state.isActiveOfferLoading = false;
         state.activeOffer = action.payload.offer;
         state.comments = action.payload.comments;
         state.nearByOffers = action.payload.nearByOffers;
+      })
+      .addCase(fetchOneOfferAction.rejected, (state) => {
+        state.isActiveOfferError = true;
+        toast.error('Hotel ID does not exist');
       })
       .addCase(sendNewComment.pending, (state) => {
         state.isNewCommentSending = true;
