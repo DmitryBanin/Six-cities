@@ -43,8 +43,8 @@ function ReviewsForm({ roomId }: ReviewFormProps): JSX.Element {
       </label>
       <div className="reviews__rating-form form__rating">
         {
-          [...new Array(Settings.MAX_COMMENTS_LENGTH)].map((_, index) => {
-            const starNumber = Settings.MAX_COMMENTS_LENGTH - index;
+          [...new Array(Settings.MAX_RATING)].map((_, index) => {
+            const starNumber = Settings.MAX_RATING - index;
             return (
               <Fragment key={starNumber}>
                 <input
