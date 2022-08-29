@@ -15,13 +15,13 @@ function PlaceCard({offer, placeType, onHoverCard}: PlaceCardProps): JSX.Element
 
   const handleMouseOver = (evt: MouseEvent<HTMLElement>) => {
     if (onHoverCard !== undefined) {
-      return onHoverCard(offer.id);
+      onHoverCard(offer.id);
     }
   };
 
   const handleMouseLeave = (evt: MouseEvent<HTMLElement>) => {
     if (onHoverCard !== undefined) {
-      return onHoverCard(null);
+      onHoverCard(null);
     }
   };
 

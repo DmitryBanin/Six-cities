@@ -3,12 +3,13 @@ import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/useMap';
 import { useRef, useEffect } from 'react';
-import { Pin, TypeClassName } from '../../const';
+import { Pin } from '../../const';
+import { useLocation } from 'react-router-dom';
+import { getMapType } from '../../utils';
 
 type MapProps = {
     offers: OfferTypes;
     city: City;
-    placeType: TypeClassName;
     activeCard: number | null;
   }
 
@@ -24,11 +25,13 @@ const currentPinIcon = new Icon({
   iconAnchor: [13.5, 39],
 });
 
-function Map({city, offers, placeType, activeCard}: MapProps): JSX.Element {
+function Map({city, offers, activeCard}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const { latitude, longitude, zoom } = city.location;
 
+  const { pathname } = useLocation();
+  const placeType = getMapType(pathname);
 
   useEffect(() => {
     if (map) {

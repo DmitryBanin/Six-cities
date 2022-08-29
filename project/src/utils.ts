@@ -1,5 +1,5 @@
 import { OfferTypes, OfferType } from './types/offer-type';
-import { SortType, AuthorizationStatus, Settings } from './const';
+import { SortType, AuthorizationStatus, Settings, AppRoute, TypeClassName } from './const';
 import dayjs from 'dayjs';
 import { CommentType } from './types/comment-type';
 
@@ -45,3 +45,10 @@ export const sortByDate = (commentA: CommentType, commentB: CommentType) => {
 };
 
 export const prepareComments = (comments: CommentType[]): CommentType[] => [...comments].sort(sortByDate).slice(0, Settings.MAX_COMMENTS);
+
+export const getMapType = (pathname: string): string => {
+  if (pathname.includes(AppRoute.Room)) {
+    return TypeClassName.Property;
+  }
+  return TypeClassName.Cities;
+};

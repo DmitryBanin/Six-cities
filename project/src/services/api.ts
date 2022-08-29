@@ -5,9 +5,8 @@ import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 
 const errorStatusCodeSet = new Set([
-  StatusCodes.BAD_REQUEST,
-  StatusCodes.UNAUTHORIZED,
-  StatusCodes.NOT_FOUND,
+  StatusCodes.BAD_REQUEST, // 400
+  StatusCodes.NOT_FOUND, // 404
 ]);
 
 const shouldDisplayError = (response: AxiosResponse) =>

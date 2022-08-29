@@ -21,7 +21,6 @@ const getFavoriteButtonSize = (screen: string): { width: string; height: string;
     ? { width: '31', height: '33' }
     : { width: '18', height: '19' };
 
-
 function FavoriteButton({ isFavorite, screen, id }: FavoriteButtonProps): JSX.Element {
 
   const dispatch = useAppDispatch();
@@ -44,12 +43,12 @@ function FavoriteButton({ isFavorite, screen, id }: FavoriteButtonProps): JSX.El
       onClick={handleFavoriteButtonClick}
     >
       <svg
-        className={screen}
+        className={`${screen}__bookmark-icon`}
         {...getFavoriteButtonSize(screen)}
       >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
-      <span className="visually-hidden">To bookmarks</span>
+      <span className="visually-hidden">In bookmarks</span>
     </button>
   );
 }

@@ -4,6 +4,8 @@ import { OfferTypes } from '../../types/offer-type';
 import Nav from '../../components/nav/nav';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/data-process/selectors';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type GroupOffer = {
   [city: string]: OfferTypes;
@@ -32,6 +34,7 @@ function FavoritesScreen(): JSX.Element {
 
   const groupedFavoriteOffersList = Object.entries(groupFavoriteOffers());
   const favoritesTitle = favoriteOffers.length ? 'Saved listing' : 'Favorites (empty)';
+  const favoritesClassName = favoriteOffers.length ? 'favorites__title' : 'visually-hidden';
   const favoritesAddedBlock = favoriteOffers.length ? <FavoritesList groupedOffers={groupedFavoriteOffersList} /> : (
     <div className="favorites__status-wrapper">
       <b className="favorites__status">Nothing yet saved.</b>
@@ -52,15 +55,21 @@ function FavoritesScreen(): JSX.Element {
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
-            <h1 className="favorites__title">{favoritesTitle}</h1>
+            <h1 className={favoritesClassName}>{favoritesTitle}</h1>
             {favoritesAddedBlock}
           </section>
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
+        <Link className="footer__logo-link" to={AppRoute.Main}>
+          <img
+            className="footer__logo"
+            src="img/logo.svg"
+            alt="6 cities logo"
+            width="64"
+            height="33"
+          />
+        </Link>
       </footer>
     </div>
   );

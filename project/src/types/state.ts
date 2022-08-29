@@ -19,7 +19,8 @@ export type DataProcess = {
   isOffersListLoading: boolean;
   isActiveOfferLoading: boolean;
   isNewCommentSending: boolean;
-  favoriteOffers: OfferType[],
+  favoriteOffers: OfferTypes,
+  isActiveOfferError: boolean;
 };
 
 export type FavoriteProcess = {
