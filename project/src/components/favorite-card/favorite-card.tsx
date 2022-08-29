@@ -1,5 +1,5 @@
 import { OfferTypes } from '../../types/offer-type';
-import { Place, TypeClassName } from '../../const';
+import { Place, TypeClassName, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import { getRatingStars } from '../../utils';
 import FavoriteButton from '../favorite-button/favorite-button';
@@ -15,9 +15,9 @@ function FavoriteCard({ city, offers }: OfferCardProps): JSX.Element {
     <li key={city} className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="https://www.google.com/">
+          <div className="locations__item-link">
             <span>{city}</span>
-          </a>
+          </div>
         </div>
       </div>
       <div className="favorites__places">
@@ -25,15 +25,15 @@ function FavoriteCard({ city, offers }: OfferCardProps): JSX.Element {
           <article key={offer.id} className="favorites__card place-card">
             {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
             <div className="favorites__image-wrapper place-card__image-wrapper">
-              <a href="#">
+              <Link to={`${AppRoute.Room}/${offer.id}`}>
                 <img
                   className="place-card__image"
                   src={offer.previewImage}
                   width="150"
                   height="110"
-                  alt="Place image"
+                  alt="Place"
                 />
-              </a>
+              </Link>
             </div>
             <div className="favorites__card-info place-card__info">
               <div className="place-card__price-wrapper">
@@ -52,9 +52,7 @@ function FavoriteCard({ city, offers }: OfferCardProps): JSX.Element {
                 </div>
               </div>
               <h2 className="place-card__name">
-                <Link to={`/offer/:${offer.id}`}>
-                  {offer.title}
-                </Link>
+                <Link to={`${AppRoute.Room}/${offer.id}`}>{offer.title}</Link>
               </h2>
               <p className="place-card__type">{Place[offer.type]}</p>
             </div>

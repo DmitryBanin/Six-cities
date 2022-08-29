@@ -41,7 +41,7 @@ function PlaceCard({offer, placeType, onHoverCard}: PlaceCardProps): JSX.Element
             src={offer.previewImage}
             width="260"
             height="200"
-            alt="Place image"
+            alt="Place"
           />
         </Link>
       </div>

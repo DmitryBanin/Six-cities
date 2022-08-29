@@ -34,7 +34,7 @@ function FavoritesScreen(): JSX.Element {
 
   const groupedFavoriteOffersList = Object.entries(groupFavoriteOffers());
   const favoritesTitle = favoriteOffers.length ? 'Saved listing' : 'Favorites (empty)';
-  const favoritesClassName = favoriteOffers.length ? 'favorites__title' : 'visually-hidden';
+  const favoritesVisually = favoriteOffers.length ? 'favorites__title' : 'visually-hidden';
   const favoritesAddedBlock = favoriteOffers.length ? <FavoritesList groupedOffers={groupedFavoriteOffersList} /> : (
     <div className="favorites__status-wrapper">
       <b className="favorites__status">Nothing yet saved.</b>
@@ -43,7 +43,7 @@ function FavoritesScreen(): JSX.Element {
   );
 
   return (
-    <div className="page">
+    <div className={`page ${favoriteOffers.length ? '' : 'page--favorites-empty'}`}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -52,15 +52,15 @@ function FavoritesScreen(): JSX.Element {
           </div>
         </div>
       </header>
-      <main className="page__main page__main--favorites">
+      <main className={`page__main page__main--favorites ${favoriteOffers.length ? '' : 'page__main--favorites-empty'}`} >
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className={favoritesClassName}>{favoritesTitle}</h1>
+          <section className={`favorites ${favoriteOffers.length ? '' : 'favorites--empty'}`}>
+            <h1 className={favoritesVisually}>{favoritesTitle}</h1>
             {favoritesAddedBlock}
           </section>
         </div>
       </main>
-      <footer className="footer container">
+      <footer className={`footer ${favoriteOffers.length ? 'container' : ''}`}>
         <Link className="footer__logo-link" to={AppRoute.Main}>
           <img
             className="footer__logo"
