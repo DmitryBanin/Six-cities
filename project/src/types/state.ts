@@ -23,10 +23,6 @@ export type DataProcess = {
   isActiveOfferError: boolean;
 };
 
-export type FavoriteProcess = {
-    currentFavoriteOffer: OfferType | null;
-  };
-
 export type CityProcess = {
   city: string;
 };
