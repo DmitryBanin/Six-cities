@@ -10,7 +10,7 @@ import { useAppSelector } from '../../hooks/index';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import HistoryRouter from '../history-router/history-router';
 import { browserHistory } from '../../browser-history';
-import { getIsOffersListLoading } from '../../store/selectors';
+import { getIsOffersListLoading } from '../../store/data-process/selectors';
 import RestrictRoute from '../restrict-route/restrict-route';
 
 function App(): JSX.Element {
