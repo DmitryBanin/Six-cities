@@ -1,29 +1,38 @@
 import Logo from '../../components/logo/logo';
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks/index';
 import { loginAction } from '../../store/api-actions';
-import { AuthData } from '../../types/auth-data';
+import { passwordRegExp } from '../../const';
 
 function LoginScreen(): JSX.Element {
 
   const dispatch = useAppDispatch();
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const [authData, setAuthData] = useState<AuthData>({ login: '', password: '' });
+  const handleInputChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    let validity = '';
 
-  const handleLoginChange = (evt: ChangeEvent<HTMLInputElement>): void => {
-    evt.preventDefault();
-    setAuthData({ ...authData, login: evt.target.value });
+    switch (true) {
+      case /\s/g.test(target.value):
+        validity = 'Enter a password without spaces';
+        break;
+      case !passwordRegExp.test(target.value):
+        validity = 'Enter at least one letter and one digit';
+        break;
+    }
+
+    target.setCustomValidity(validity);
+    target.reportValidity();
   };
 
-  const handlePasswordChange = (evt: ChangeEvent<HTMLInputElement>): void => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setAuthData({ ...authData, password: evt.target.value });
-  };
-
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>): void => {
-    evt.preventDefault();
-    if (authData.login !== '' && authData.password !== '') {
-      dispatch(loginAction(authData));
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      dispatch(loginAction({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      }));
     }
   };
 
@@ -47,7 +56,7 @@ function LoginScreen(): JSX.Element {
               className="login__form form"
               action="#"
               method="post"
-              onSubmit={handleSubmit}
+              onSubmit={handleFormSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
@@ -55,9 +64,9 @@ function LoginScreen(): JSX.Element {
                   className="login__input form__input"
                   type="email"
                   name="email"
+                  id="name"
                   placeholder="Email"
-                  value={authData.login}
-                  onChange={handleLoginChange}
+                  ref={loginRef}
                   required
                 />
               </div>
@@ -67,9 +76,12 @@ function LoginScreen(): JSX.Element {
                   className="login__input form__input"
                   type="password"
                   name="password"
+                  id="password"
                   placeholder="Password"
-                  value={authData.password}
-                  onChange={handlePasswordChange}
+                  ref={passwordRef}
+                  onChange={(evt) => {
+                    handleInputChange(evt);
+                  }}
                   required
                 />
               </div>
@@ -78,9 +90,9 @@ function LoginScreen(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <div className="locations__item-link">
                 <span>Amsterdam</span>
-              </a>
+              </div>
             </div>
           </section>
         </div>

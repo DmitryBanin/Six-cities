@@ -20,15 +20,6 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN'
 }
 
-export enum RatingStars {
-  Star_0 = '0%',
-  Star_1 = '20%',
-  Star_2 = '40%',
-  Star_3 = '60%',
-  Star_4 = '80%',
-  Star_5 = '100%'
-}
-
 export const Place: PlaceType = {
   'apartment': 'Apartment',
   'room': 'Private Room',
@@ -106,3 +97,5 @@ export const PLACES_LIST_CLASSES: PlaceType = {
   'cities': 'cities__places-list tabs__content',
   'near-places': 'near-places__list',
 };
+
+export const passwordRegExp = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/);

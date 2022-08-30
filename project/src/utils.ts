@@ -1,5 +1,5 @@
 import { OfferTypes, OfferType } from './types/offer-type';
-import { SortType, AuthorizationStatus, Settings, AppRoute, TypeClassName } from './const';
+import { SortType, Settings, AppRoute, TypeClassName } from './const';
 import dayjs from 'dayjs';
 import { CommentType } from './types/comment-type';
 
@@ -33,10 +33,6 @@ export const getSortOffers = (type: string, offers: OfferTypes) => {
       return offers;
   }
 };
-
-
-export const isAuthorized = ( authStatus: AuthorizationStatus ): boolean =>
-  authStatus === AuthorizationStatus.Auth;
 
 export const sortByDate = (commentA: CommentType, commentB: CommentType) => {
   const timeA = dayjs(commentA.date);
