@@ -17,7 +17,8 @@
     "react-toastify": "^9.0.8",
     "reselect": "4.0.0"
   },
-  "scripts": {
+  "scripts": {git
+    "predeploy": "npm run build",
     "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
