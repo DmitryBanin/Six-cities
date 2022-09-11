@@ -18,11 +18,13 @@
     "reselect": "4.0.0"
   },
   "scripts": {
+    "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .tsx --ext .ts src/"
+    "lint": "eslint --ext .tsx --ext .ts src/",
+    "homepage": "https://dmitrybanin.github.io/Six-cities/"
   },
   "eslintConfig": {
     "extends": [
