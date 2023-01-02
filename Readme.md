@@ -1,3 +1,3 @@
 ## Проект [Six-cities](six-cities-pi.vercel.app)
 
-![small](https://user-images.githubusercontent.com/77890343/210189600-4d9a2859-9dd1-498f-8e74-c8a404a212ab.jpg)
+![2023-01-02_06-48-09](https://user-images.githubusercontent.com/77890343/210189611-58a0054d-89b9-430c-adc3-5d83dd68a67b.jpg)
